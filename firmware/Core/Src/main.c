@@ -108,7 +108,24 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  HAL_I2S_Receive(&hi2s3, (uint16_t*)audio_buffer, 64, HAL_MAX_DELAY);
-	  printf("%d\r\n", audio_buffer[0]);
+
+	  int16_t huippu = 0;
+
+	  for (int i = 0; i < 64; i++){
+
+		  int16_t nayte = audio_buffer[i];
+
+		  if (nayte < 0){
+
+			  nayte = -nayte;
+		  }
+		  if (nayte > huippu){
+
+			  huippu = nayte;
+		  }
+
+	  }
+	  printf("%d\r\n", huippu);
   }
   /* USER CODE END 3 */
 }
